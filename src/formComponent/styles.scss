@@ -1,0 +1,95 @@
+.form-component{
+    background-color: #e8e8e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .form{
+        width: 60%;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 15px;
+        .heading{
+            color: #db4437;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .flex{
+            display: flex;
+        }
+        .ant-form-item{
+            &:first-of-type{
+                margin-right: 20px;
+            }
+            &.button{
+                width: fit-content;
+                margin: auto;
+                .ant-btn{
+                    width : 85px;
+                    border-radius: 50px;
+                    background-color: #bfbfbf;
+                    color: #fff;
+                    border: none;
+                    box-shadow: 0 2px 0 #999;
+                    &.ant-btn-primary{
+                        background-color: #f5892d;
+                    }
+                }
+            }
+            &.ant-form-item-with-help {
+                margin-bottom: 10px;
+            }
+            .ant-form-item-control{
+                position: relative;
+
+                .ant-form-explain{
+                    font-size: 12px;
+                    margin-left: 7px;
+                }
+            }
+        }
+        .input{
+            flex-grow: 1;
+        }
+        label{
+            position: absolute;
+            padding: 0 4px;
+            top: 0px;
+            left: 14px;
+            color: #999;
+            transition: .3s;
+            pointer-events: none;
+            line-height: normal;
+        }
+        .ant-input{
+            height: 38px;
+            border-radius: 10px;
+            padding: 4px 18px;
+            color: #505050;
+            &:hover{
+                border-color: #d9d9d9;
+            }
+            &:focus{
+                border-color: #db4437;
+                box-shadow: none;
+                ~{
+                    label{
+                        top: -18px;
+                        color: #db4437;
+                        background: #fff;
+                        font-size: 12px;
+                    }
+                }
+            }
+            &:valid{
+                ~{
+                    label{
+                        top: -18px;
+                        color: #999;
+                        background: #fff;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
