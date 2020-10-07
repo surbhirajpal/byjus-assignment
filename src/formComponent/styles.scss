@@ -6,7 +6,7 @@
     .form{
         width: 60%;
         background-color: #fff;
-        border-radius: 5px;
+        border-radius: 7px;
         padding: 15px;
         .heading{
             color: #db4437;
@@ -23,16 +23,19 @@
             &.button{
                 width: fit-content;
                 margin: auto;
-                .ant-btn{
+                .ant-btn-primary[disabled]{
+                    background-color: #bfbfbf;
+                    box-shadow: 0 3px 0 #999;
+                }
+                .ant-btn-primary{
+                    background-color: #f5892d;
                     width : 85px;
                     border-radius: 50px;
-                    background-color: #bfbfbf;
                     color: #fff;
                     border: none;
-                    box-shadow: 0 2px 0 #999;
-                    &.ant-btn-primary{
-                        background-color: #f5892d;
-                    }
+                    box-shadow: 0 3px 0 #c1601b;
+
+
                 }
             }
             &.ant-form-item-with-help {
@@ -50,7 +53,34 @@
         .input{
             flex-grow: 1;
         }
+        .email{
+            label{
+                top: 0 !important;
+                font-size: 14px !important;
+            }
+            .ant-input{
+                &:focus{
+                    ~{
+                        label{
+                            top: -18px !important;
+                            font-size: 12px !important;
+                            color: #db4437;
+                        }
+                    }
+                }
+                &.top{
+                    ~{
+                        label{
+                            top : -18px !important;
+                            font-size: 12px !important;
+                        }
+                    }
+                }
+
+            }
+        }
         label{
+            font-size: 14px;
             position: absolute;
             padding: 0 4px;
             top: 0px;

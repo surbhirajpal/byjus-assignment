@@ -1,23 +1,35 @@
 import React from 'react'
-import { Form, Button, Input, Icon } from 'antd'
+import { Form, Button, Input} from 'antd'
 import './styles.scss'
 
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class HorizontalLoginForm extends React.Component {
+class InformativeForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            emailValue: ''
+        }
+        this.handleChange = this.handleChange.bind(this);
+
+    }
+
     componentDidMount() {
-        // To disable submit button at the beginning.
         this.props.form.validateFields();
     }
 
+    handleChange(event) {
+        this.setState({ emailValue: event.target.value });
+    }
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                alert("Congratulations " + values.firstname + ", your form has been submitted!")
+
             }
         });
     };
@@ -25,7 +37,6 @@ class HorizontalLoginForm extends React.Component {
     render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
-        // Only show error after a field is touched.
         const firstnameError = isFieldTouched('firstname') && getFieldError('firstname');
         const lastnameError = isFieldTouched('lastname') && getFieldError('lastname');
         const emailError = isFieldTouched('email') && getFieldError('email');
@@ -41,11 +52,11 @@ class HorizontalLoginForm extends React.Component {
                     <Form onSubmit={this.handleSubmit}>
                         <div className="flex">
                             <div className="input">
-                                <Form.Item validateStatus={firstnameError ? 'error' : ''} help={firstnameError || ''}>
+                                <Form.Item validateStatus={firstnameError ? 'error' : ''}>
                                     {getFieldDecorator('firstname', {
                                         rules: [{ required: true, message: " " }],
                                     })(
-                                        <Input required={true} />,
+                                        <Input required={true}/>,
                                     )}
                                     <label>First name</label>
 
@@ -53,7 +64,7 @@ class HorizontalLoginForm extends React.Component {
                             </div>
 
                             <div className="input">
-                                <Form.Item validateStatus={lastnameError ? 'error' : ''} help={lastnameError || ''}>
+                                <Form.Item validateStatus={lastnameError ? 'error' : ''} >
                                     {getFieldDecorator('lastname', {
                                         rules: [{ required: true, message: ' ' }],
                                     })(
@@ -65,18 +76,20 @@ class HorizontalLoginForm extends React.Component {
                         </div>
 
                         <div className="input">
-                            <Form.Item validateStatus={emailError ? 'error' : ''} help={emailError || ''}>
+                            <Form.Item validateStatus={emailError ? 'error' : ''} className="email">
                                 {getFieldDecorator('email', {
-                                    rules: [{ type : 'email', message:'Not a valid email address' }],
+                                    rules: [{ type: 'email', message: 'Not a valid email address' }],
                                 })(
-                                    <Input required={true} />,
+                                    <Input required={false} value={this.state.emailValue}
+                                        onChange={this.handleChange}
+                                        className={this.state.emailValue == '' ? "initial" : "top"} />,
                                 )}
                                 <label>Email address</label>
                             </Form.Item>
                         </div>
 
                         <div className="input">
-                            <Form.Item validateStatus={addressError ? 'error' : ''} help={addressError || ''}>
+                            <Form.Item validateStatus={addressError ? 'error' : ''} >
                                 {getFieldDecorator('address', {
                                     rules: [{ required: true, message: ' ' }],
                                 })(
@@ -88,7 +101,7 @@ class HorizontalLoginForm extends React.Component {
 
                         <div className="flex">
                             <div className="input">
-                                <Form.Item validateStatus={cityError ? 'error' : ''} help={cityError || ''}>
+                                <Form.Item validateStatus={cityError ? 'error' : ''} >
                                     {getFieldDecorator('city', {
                                         rules: [{ required: true, message: ' ' }],
                                     })(
@@ -98,7 +111,7 @@ class HorizontalLoginForm extends React.Component {
                                 </Form.Item>
                             </div>
                             <div className="input">
-                                <Form.Item validateStatus={postalCodeError ? 'error' : ''} help={postalCodeError || ''}>
+                                <Form.Item validateStatus={postalCodeError ? 'error' : ''} >
                                     {getFieldDecorator('postalCode', {
                                         rules: [{ required: true, message: ' ' }],
                                     })(
@@ -120,6 +133,6 @@ class HorizontalLoginForm extends React.Component {
     }
 }
 
-const WrappedHorizontalLoginForm = Form.create({ name: 'horizontal_login' })(HorizontalLoginForm);
+const WrappedLoginForm = Form.create()(InformativeForm);
 
-export default WrappedHorizontalLoginForm
+export default WrappedLoginForm
